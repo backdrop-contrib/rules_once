@@ -1,0 +1,7 @@
+name = Rules Once
+description = Provides conditions and actions that support reusable Rules that act at a specified date/time.
+package = Rules
+backdrop = 1.x
+type = module
+
+dependencies[] = rules

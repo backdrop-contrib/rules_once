@@ -1,0 +1,64 @@
+<?php
+/**
+ * @file
+ * Hooks and function implementations.
+ */
+
+/**
+ * Get the enabled/disabled status from a Rules Once rule.
+ */
+function rules_once_get_active($rule_name) {
+  $rule = rules_config_load($rule_name);
+  if (!empty($rule)) {
+    return $rule->active;
+  }
+  return NULL;
+}
+
+/**
+ * Set the enabled/disabled status for a Rules Once rule.
+ */
+function rules_once_set_active($rule_name, $active) {
+  $rule = rules_config_load($rule_name);
+  if (!empty($rule)) {
+    $rule->active = $active;
+    $rule->save();
+  }
+}
+
+/**
+ * Get the date (timestamp) from a Rules Once rule (assuming that it has a
+ * "After date" condition). Return the date timestamp if available, NULL
+ * otherwise.
+ */
+function rules_once_get_date($rule_name) {
+  $rule = rules_config_load($rule_name);
+  if (!empty($rule)) {
+  $conditions = $rule->conditions();
+    foreach ($conditions as $condition) {
+      if ($condition->getElementName() == 'rules_once_condition_after') {
+        return $condition->settings['date'];
+      }
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Set the date (timestamp) for a Rules Once rule (assuming that it has a
+ * "After date" condition). Return TRUE if successful, FALSE otherwise.
+ */
+function rules_once_set_date($rule_name, $date) {
+  $rule = rules_config_load($rule_name);
+  if (!empty($rule)) {
+  $conditions = $rule->conditions();
+    foreach ($conditions as $condition) {
+      if ($condition->getElementName() == 'rules_once_condition_after') {
+        $condition->settings['date'] = $date;
+        $rule->save();
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}
