@@ -27,10 +27,11 @@ function rules_once_rules_condition_info() {
 }
 
 /**
- * Callback function for rules condition: test if it's on or after the date.
+ * Callback function for rules condition: test if it's on or after the date,
+ * which is stored as a timestamp.
  */
 function rules_once_compare_date($date) {
-  return REQUEST_TIME >= strtotime($date);
+  return REQUEST_TIME >= $date;
 }
 
 /**
