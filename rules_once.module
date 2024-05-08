@@ -27,6 +27,22 @@ function rules_once_set_active($rule_name, $active) {
 }
 
 /**
+ * Return whether a Rules Once rule has an "After date" condition).
+ */
+function rules_once_has_date($rule_name) {
+  $rule = rules_config_load($rule_name);
+  if (!empty($rule)) {
+  $conditions = $rule->conditions();
+    foreach ($conditions as $condition) {
+      if ($condition->getElementName() == 'rules_once_condition_after') {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
  * Get the date (timestamp) from a Rules Once rule (assuming that it has a
  * "After date" condition). Return the date timestamp if available, NULL
  * otherwise.
