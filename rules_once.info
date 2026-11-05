@@ -3,5 +3,6 @@ description = Provides conditions and actions that support reusable Rules that a
 package = Rules
 backdrop = 1.x
 type = module
+maintainers[bugfolder] = Robert J. Lang
 
 dependencies[] = rules
